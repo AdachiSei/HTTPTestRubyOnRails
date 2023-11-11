@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,10 +10,10 @@ public class WadaRequestTest : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(GetCsrfTokenAndRegisterUser()); // WebTestをコルーチンとして呼び出す
+        GetCsrfTokenAndRegisterUser().Forget(); // WebTestをコルーチンとして呼び出す
     }
 
-    IEnumerator GetCsrfTokenAndRegisterUser()
+    private async UniTask GetCsrfTokenAndRegisterUser()
     {
         // ユーザーの登録
         string registerUrl = "http://bakusoumaru.site:3000/api/register";
@@ -24,7 +25,7 @@ public class WadaRequestTest : MonoBehaviour
         // リクエストヘッダーにCSRFトークンを追加
         registerRequest.SetRequestHeader("X-CSRF-Token", "5b7f3d0f58f6bc9de7fb6129ebf21cd8");
 
-        yield return registerRequest.SendWebRequest();
+        await registerRequest.SendWebRequest();
 
         if (registerRequest.result == UnityWebRequest.Result.Success)
         {

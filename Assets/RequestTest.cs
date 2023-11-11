@@ -1,28 +1,32 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class RequestTest : MonoBehaviour
 {
+    [SerializeField]
+    [Header("保存したい情報")]
+    private string _saveData = "";
+
     private string apiUrl = "http://bakusoumaru.site:3000/api/post_text";
 
     private void Start()
     {
-        StartCoroutine(GetCsrfTokenAndRegisterUser()); // WebTestをコルーチンとして呼び出す
+        GetCsrfTokenAndRegisterUser().Forget(); // WebTestをコルーチンとして呼び出す
     }
 
-    IEnumerator GetCsrfTokenAndRegisterUser()
+    private async UniTask GetCsrfTokenAndRegisterUser()
     {
 
-           // 送信するデータを作成
-           WWWForm form = new WWWForm();
+        // 送信するデータを作成
+        WWWForm form = new WWWForm();
         form.AddField("key1", "value1");
-        form.AddField("key2", "wada");
+        form.AddField("key2", _saveData);
 
         UnityWebRequest registerRequest = UnityWebRequest.Post(apiUrl, form);
-        //registerRequest.SetRequestHeader("X-CSRF-Token", "b654179120ddcd22d84d1def43e02f85");
 
-        yield return registerRequest.SendWebRequest();
+        await registerRequest.SendWebRequest();
 
         if (registerRequest.result == UnityWebRequest.Result.Success)
         {

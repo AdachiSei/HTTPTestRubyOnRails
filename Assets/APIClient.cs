@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -9,16 +10,15 @@ public class APIClient : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(GetTextFromAPI());
+        GetTextFromAPI().Forget();
     }
 
-    IEnumerator GetTextFromAPI()
+    private async UniTask GetTextFromAPI()
     {
-
         Debug.Log("ê⁄ë±íÜ");
         UnityWebRequest www = UnityWebRequest.Get(apiURL);
 
-        yield return www.SendWebRequest();
+        await www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)
         {
