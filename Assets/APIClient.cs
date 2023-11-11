@@ -21,9 +21,7 @@ public class APIClient : MonoBehaviour
         await www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)
-        {
             Debug.LogError("Error: " + www.error);
-        }
         else
         {
             string textResponse = www.downloadHandler.text;

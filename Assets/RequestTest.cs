@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -29,12 +28,8 @@ public class RequestTest : MonoBehaviour
         await registerRequest.SendWebRequest();
 
         if (registerRequest.result == UnityWebRequest.Result.Success)
-        {
             Debug.Log("Data sent successfully");
-        }
         else
-        {
             Debug.LogError("Error sending data: " + registerRequest.error);
-        }
     }
 }
