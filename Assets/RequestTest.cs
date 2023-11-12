@@ -12,7 +12,7 @@ public class RequestTest : MonoBehaviour
 
     private void Start()
     {
-        GetCsrfTokenAndRegisterUser().Forget(); // WebTestをコルーチンとして呼び出す
+        GetCsrfTokenAndRegisterUser().Forget();
     }
 
     private async UniTask GetCsrfTokenAndRegisterUser()
