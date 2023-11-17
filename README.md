@@ -1,6 +1,8 @@
 # HTTPTestRubyOnRails
 Unityでサーバーに通信できました!
 
+GetとPostが完了しました
+
 Engine
 Unity C＃
 Server
